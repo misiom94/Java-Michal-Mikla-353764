@@ -15,7 +15,7 @@ import pl.lodz.uni.math.user.User;
  */
 public class DbSource implements Source {
     
-    private User userMock = EasyMock.createMock(User.class);
+    private User userMock;
     private static DbSource databaseSource = new DbSource();
      private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DbSource.class.getName());
     
@@ -26,7 +26,6 @@ public class DbSource implements Source {
         return databaseSource;
     }
     
-    @Override
     public List<User> selectAllUsers() {
         
         List<User> listUserMock = EasyMock.mock(List.class);
@@ -36,8 +35,8 @@ public class DbSource implements Source {
         return listUserMock;
     }
 
-    @Override
     public User selectUserByID(Integer id) {
+    	userMock = EasyMock.createMock(User.class);
         EasyMock.expect(userMock.getID()).andReturn(id).anyTimes();
         EasyMock.expect(userMock.getName()).andReturn("DataBase").anyTimes();
         EasyMock.replay(userMock);

@@ -15,7 +15,7 @@ import pl.lodz.uni.math.user.User;
  */
 public class XmlSource implements Source {
     
-    private User userMock = EasyMock.createMock(User.class);
+    private User userMock;
     List<User> listUserMock = EasyMock.mock(List.class);
     private static XmlSource xmlInstance = null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(XmlSource.class.getName());
@@ -27,7 +27,6 @@ public class XmlSource implements Source {
                 return xmlInstance;
 	}
     
-    @Override
     public List<User> selectAllUsers() {
         
         EasyMock.expect(listUserMock.size()).andReturn(1).anyTimes();
@@ -38,9 +37,8 @@ public class XmlSource implements Source {
 
     }
 
-    @Override
     public User selectUserByID(Integer id) {
-        
+    	userMock = EasyMock.createMock(User.class);
         EasyMock.expect(userMock.getID()).andReturn(id).anyTimes();
         EasyMock.replay(userMock);
 

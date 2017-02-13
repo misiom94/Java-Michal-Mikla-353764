@@ -17,7 +17,7 @@ import pl.lodz.uni.math.user.User;
 public class WsSource implements Source {
     
     public static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(WsSource.class.getName());
-    private User userMock = EasyMock.createMock(User.class);
+    private User userMock;
     List<User> listUserMock = EasyMock.mock(List.class); 
     private static WsSource wsInstance = null;
     
@@ -28,7 +28,6 @@ public class WsSource implements Source {
         return wsInstance;
     }
     
-    @Override
     public List<User> selectAllUsers() {
         EasyMock.expect(listUserMock.size()).andReturn(1).anyTimes();
         EasyMock.expect(listUserMock.get(1)).andReturn(userMock).anyTimes();
@@ -37,8 +36,8 @@ public class WsSource implements Source {
         return listUserMock;
     }
 
-    @Override
     public User selectUserByID(Integer id) {
+    	userMock = EasyMock.createMock(User.class);
         EasyMock.expect(userMock.getID()).andReturn(id).anyTimes();
         EasyMock.expect(userMock.getName()).andReturn("WS").anyTimes();
         EasyMock.replay(userMock);
