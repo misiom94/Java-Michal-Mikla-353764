@@ -1,31 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pl.lodz.uni.math.daofactory;
 
-
-public class DaoFactory {
+/**
+ *
+ * @author user
+ */
+public interface DaoFactory {
     
-    private Source dataSource;
+    public void setSourceOfData(SourceOfData source);
     
-    public DaoFactory(){}
-    
-    public void setDataSource(SourceOfData source){
-        switch(source){
-            case DB:
-                dataSource = DbSource.getInstance();
-                break;
-            case XML:
-                dataSource = XmlSource.getInstance();
-                break;
-            case WS:
-                dataSource = WsSource.getInstance();
-                break;
-        }
-
-	}
-      public Source getSourceOfData() {
-		return dataSource;
-        
-    }
-    
-    
+    public SourceOfData getSource();
     
 }

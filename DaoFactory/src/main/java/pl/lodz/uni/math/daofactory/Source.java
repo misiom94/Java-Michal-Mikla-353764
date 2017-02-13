@@ -15,6 +15,6 @@ import pl.lodz.uni.math.user.User;
 public interface Source {
     
     public List<User> selectAllUsers();
-    public User selectUserByID(int id);
+    public User selectUserByID(Integer id);
     
 }

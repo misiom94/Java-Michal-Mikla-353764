@@ -17,15 +17,16 @@ public class XmlSource implements Source {
     
     private User userMock = EasyMock.createMock(User.class);
     List<User> listUserMock = EasyMock.mock(List.class);
-	
-    private static XmlSource xmlInstance = new XmlSource();
+    private static XmlSource xmlInstance = null;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(XmlSource.class.getName());
     
     public static XmlSource getInstance() {
-		return xmlInstance;
+		if(xmlInstance==null){
+                    xmlInstance = new XmlSource();
+                }
+                return xmlInstance;
 	}
     
-    
-
     @Override
     public List<User> selectAllUsers() {
         
@@ -38,7 +39,7 @@ public class XmlSource implements Source {
     }
 
     @Override
-    public User selectUserByID(int id) {
+    public User selectUserByID(Integer id) {
         
         EasyMock.expect(userMock.getID()).andReturn(id).anyTimes();
         EasyMock.replay(userMock);

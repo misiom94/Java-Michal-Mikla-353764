@@ -17,12 +17,15 @@ public class DbSource implements Source {
     
     private User userMock = EasyMock.createMock(User.class);
     private static DbSource databaseSource = new DbSource();
+     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DbSource.class.getName());
     
     public static DbSource getInstance(){
+        if(databaseSource == null){
+            databaseSource = new DbSource();
+        }
         return databaseSource;
     }
     
-
     @Override
     public List<User> selectAllUsers() {
         
@@ -30,16 +33,14 @@ public class DbSource implements Source {
         EasyMock.expect(listUserMock.size()).andReturn(1).anyTimes();
         EasyMock.expect(listUserMock.get(1)).andReturn(userMock).anyTimes();
         EasyMock.replay(listUserMock);
-        
         return listUserMock;
     }
 
     @Override
-    public User selectUserByID(int id) {
+    public User selectUserByID(Integer id) {
         EasyMock.expect(userMock.getID()).andReturn(id).anyTimes();
         EasyMock.expect(userMock.getName()).andReturn("DataBase").anyTimes();
         EasyMock.replay(userMock);
-
         return userMock;
     }
     
