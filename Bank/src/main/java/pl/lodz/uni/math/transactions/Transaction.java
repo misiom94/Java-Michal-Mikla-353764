@@ -23,7 +23,6 @@ public abstract class Transaction {
     private Date date;
     private TransactionType transactionType;
     private Integer transactionNumber;
-    private static List<Transaction> transactionHistory = new ArrayList<Transaction>();
     
     public Transaction(Client client, Account account, double moneySum, String description,
             TransactionType transactionType, Integer transactionNumber) throws NotExistAccountException, WrongClientOwnerException{
@@ -92,23 +91,6 @@ public abstract class Transaction {
 		this.transactionType = transactionType;
 	}
 	
-	public List<Transaction> getTransactionHistory(){
-		return transactionHistory;
-	}
-	
-	public void addToTransactionHistory(Transaction transaction){
-		transactionHistory.add(transaction);
-	}
-	
-	public List<Transaction> getClientTransactionHistory(Client client){
-		List<Transaction> clientTransactionHistory = new ArrayList<Transaction>();
-		for (Transaction transaction : transactionHistory) {
-			if(transaction.getClient().equals(client)){
-				clientTransactionHistory.add(transaction);
-			}
-		}
-		return clientTransactionHistory;
-	}
 
 	public Integer getTransactionNumber() {
 		return transactionNumber;

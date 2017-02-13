@@ -36,10 +36,6 @@ public class TransactionTest {
 		
 		testTransactionList.add(testTransaction);
     }
-    @Test
-    public void testTransactionHistory(){
-        assertEquals(testTransactionList,testTransaction.getClientTransactionHistory(firstClient));
-    }
     @Test(expected=WrongClientOwnerException.class)
 	public void testTransactionWrongAccountOwner() throws NotExistAccountException, WrongClientOwnerException{
 		ValuesForTransaction valuesForTransaction = new ValuesForTransaction(firstClient, 

@@ -12,7 +12,6 @@ public class Deposit extends Transaction {
                 
         BigDecimal newAmount = valuesForTransaction.getAccount().getAmount().add(new BigDecimal(valuesForTransaction.getMoneySum()));
         valuesForTransaction.getAccount().setAmount(newAmount);
-        super.addToTransactionHistory(this);
     }
     
     

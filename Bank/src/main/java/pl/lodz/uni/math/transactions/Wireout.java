@@ -38,7 +38,6 @@ public class Wireout extends Transaction {
                 valuesForTransaction.getAccount().setAmount(setAmountToSend);
                 BigDecimal setAmountToGet = account.getAmount().add(new BigDecimal(valuesForTransaction.getMoneySum()));
                 account.setAmount(setAmountToGet);
-                super.addToTransactionHistory(this);
             }
             
         }

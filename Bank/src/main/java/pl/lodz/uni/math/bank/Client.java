@@ -31,7 +31,7 @@ public class Client {
             this.name = name;
             this.accountList = new ArrayList<Account>();
             this.wireoutNumber = 1000;
-            logger.info("Client with ID: " + ID + "created...");
+            logger.info("Client with ID: " + ID + " created...");
         }
     }
     public void addAcount(String number, String description) throws WrongBankAccountNumberException, EmptyBankAccountDescriptionException{

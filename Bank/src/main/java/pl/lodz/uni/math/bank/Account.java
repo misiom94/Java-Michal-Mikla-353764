@@ -5,9 +5,21 @@
  */
 package pl.lodz.uni.math.bank;
 
+import pl.lodz.uni.math.exceptions.AccountNotEnoughMoneyException;
 import pl.lodz.uni.math.exceptions.EmptyBankAccountDescriptionException;
+import pl.lodz.uni.math.exceptions.NotExistAccountException;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import pl.lodz.uni.math.exceptions.WrongBankAccountNumberException;
+import pl.lodz.uni.math.exceptions.WrongClientOwnerException;
+import pl.lodz.uni.math.transactions.Check;
+import pl.lodz.uni.math.transactions.Deposit;
+import pl.lodz.uni.math.transactions.Transaction;
+import pl.lodz.uni.math.transactions.TransactionType;
+import pl.lodz.uni.math.transactions.ValuesForTransaction;
+import pl.lodz.uni.math.transactions.Wireout;
 
 /**
  *
@@ -21,6 +33,7 @@ public class Account {
     private BigDecimal amount;
     private Integer depositNumber;
     private Integer checkNumber;
+    private ArrayList<Transaction> transactionHistory;
     
     public Account(){
         this.decription = "No account created";
@@ -41,6 +54,7 @@ public class Account {
             this.amount = new BigDecimal(0);
             this.depositNumber = 10000;
             this.checkNumber = 1000;
+            transactionHistory = new ArrayList<Transaction>();
         }
     }
     
@@ -60,6 +74,30 @@ public class Account {
             }
         }
         return true;
+    }
+    
+    public void doDeposit(Double moneySum, String description) throws NotExistAccountException, WrongClientOwnerException{
+    	ValuesForTransaction valuesForTransaction = new ValuesForTransaction(client, this, moneySum, 
+    			decription, TransactionType.DEPOSIT, getDepositNumber());
+    	Transaction deposit = new Deposit(valuesForTransaction);
+    	transactionHistory.add(deposit);
+    	setDepositNumber(depositNumber+1);
+    }
+    
+    public void doCheck(Double moneySum, String description) throws NotExistAccountException, WrongClientOwnerException, AccountNotEnoughMoneyException{
+    	ValuesForTransaction valuesForTransaction = new ValuesForTransaction(client, this, moneySum,
+    			description, TransactionType.CHECK, getCheckNumber());
+    	Transaction check = new Check(valuesForTransaction);
+    	transactionHistory.add(check);
+    	setCheckNumber(checkNumber++);
+    }
+    
+    public void doWireout(Double moneySum, String description, Account toAccount, String country, String swift) throws NotExistAccountException, WrongClientOwnerException, EmptyBankAccountDescriptionException{
+    	ValuesForTransaction valuesForTransaction = new ValuesForTransaction(client, this, moneySum,
+    			description, TransactionType.WIREOUT, client.getWireoutNumber());
+    	Transaction wireout = new Wireout(valuesForTransaction, toAccount, country, swift);
+    	transactionHistory.add(wireout);
+    	client.setWireoutNumber(client.getWireoutNumber()+1);
     }
     
     public void setNumber(String number) {
@@ -108,5 +146,15 @@ public class Account {
     public Integer getCheckNumber() {
         return checkNumber;
     }
+
+	public ArrayList<Transaction> getTransactionHistory() {
+		return transactionHistory;
+	}
+
+	public void setTransactionHistory(ArrayList<Transaction> transactionHistory) {
+		this.transactionHistory = transactionHistory;
+	}
+    
+    
     
 }

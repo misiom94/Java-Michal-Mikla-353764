@@ -27,7 +27,6 @@ public class Check extends Transaction {
         else{
             BigDecimal newAccountAmount = valuesForTransaction.getAccount().getAmount().subtract(new BigDecimal(valuesForTransaction.getMoneySum()));
             valuesForTransaction.getAccount().setAmount(newAccountAmount);
-            super.addToTransactionHistory(this);
         }
         
     }
