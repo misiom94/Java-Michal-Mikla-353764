@@ -1,18 +1,21 @@
 package pl.lodz.uni.math.gamebowling;
+import pl.lodz.uni.math.exception.*;
 
 
 public class BonusFrame extends Frame{
     
     Roll firstRoll;
     Roll secondRoll;
-    int framescore;
+    int frameScore;
 
-    public BonusFrame(Roll firstRoll, Roll secondRoll) throws FrameException {
-        
-        this.firstRoll = firstRoll;
-        this.secondRoll = secondRoll;
-        framescore = firstRoll.getScore() + secondRoll.getScore();
-    }
+  
+    public BonusFrame(Roll firstRoll, Roll secondRoll) throws RollException
+	{
+		
+		this.firstRoll=firstRoll;
+		this.secondRoll=secondRoll;
+		frameScore=firstRoll.getScore()+secondRoll.getScore();
+	}
 
    
     
@@ -38,11 +41,11 @@ public class BonusFrame extends Frame{
     
     public Integer getFrameScore()
     {
-        return framescore;
+        return frameScore;
     }
     
     public void setFrameScore(int frameScore)
     {
-        this.framescore = framescore;
+        this.frameScore = frameScore;
     }
 }

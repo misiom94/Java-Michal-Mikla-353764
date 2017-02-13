@@ -2,6 +2,7 @@ package pl.lodz.uni.math.gamebowling;
 
 import java.util.Random;
 import org.apache.log4j.Logger;
+import pl.lodz.uni.math.exception.*;
 
 public class Frame {
     
@@ -12,6 +13,8 @@ public class Frame {
     private boolean spare = false;
     private boolean strike = false;
     private static final int maxPins = 10;
+    
+    public Frame(){};
     
     public Frame(Roll firstRoll, Roll secondRoll) throws FrameException
     {
@@ -56,6 +59,23 @@ public class Frame {
     
     public Integer getFrameScore(){
         return frameScore;
+    }
+    
+    public Integer getFirstRollScore(){
+        return frameScore;
+    }
+    
+    public Integer getSecondRollScore(){
+        if(strike==true){
+            return new Roll().getScore();
+        }
+        else{
+            return secondRoll.getScore();
+        }
+    }
+    
+    public Integer getMaxPins(){
+        return maxPins;
     }
     
 }
